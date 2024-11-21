@@ -1,0 +1,17 @@
+{
+	"key.categories.balancedinventory.tool_hotbar": "Tool Hotbar",
+	"key.balancedinventory.tool_hotbar.1": "Left Tool Hotbar Slot 1",
+	"key.balancedinventory.tool_hotbar.2": "Left Tool Hotbar Slot 2",
+	"key.balancedinventory.tool_hotbar.3": "Left Tool Hotbar Slot 3",
+	"key.balancedinventory.tool_hotbar.4": "Right Tool Hotbar Slot 1",
+	"key.balancedinventory.tool_hotbar.5": "Right Tool Hotbar Slot 2",
+	"key.balancedinventory.tool_hotbar.6": "Right Tool Hotbar Slot 3",
+	"key.balancedinventory.select_weapon": "Select Weapon",
+	
+	"text.autoconfig.balancedinventory.title": "balancedinventory",
+	"text.autoconfig.balancedinventory.option.inventory": "Inventory",
+	"text.autoconfig.balancedinventory.option.inventory.scrollToToolHotbar": "Scroll to Tool Hotbar",
+	"text.autoconfig.balancedinventory.option.inventory.autoSelectTools": "Auto Select Tools",
+	"text.autoconfig.balancedinventory.option.inventory.scrollToToolHotbar.@Tooltip": "Tool hotbar can be accessed using the scroll wheel",
+	"text.autoconfig.balancedinventory.option.inventory.autoSelectTools.@Tooltip": "Best tool will be automatically selected when mining"
+}
