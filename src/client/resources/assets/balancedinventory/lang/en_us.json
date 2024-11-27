@@ -8,10 +8,17 @@
 	"key.balancedinventory.tool_hotbar.6": "Right Tool Hotbar Slot 3",
 	"key.balancedinventory.select_weapon": "Select Weapon",
 	
-	"text.autoconfig.balancedinventory.title": "balancedinventory",
-	"text.autoconfig.balancedinventory.option.inventory": "Inventory",
-	"text.autoconfig.balancedinventory.option.inventory.scrollToToolHotbar": "Scroll to Tool Hotbar",
-	"text.autoconfig.balancedinventory.option.inventory.autoSelectTools": "Auto Select Tools",
-	"text.autoconfig.balancedinventory.option.inventory.scrollToToolHotbar.@Tooltip": "Tool hotbar can be accessed using the scroll wheel",
-	"text.autoconfig.balancedinventory.option.inventory.autoSelectTools.@Tooltip": "Best tool will be automatically selected when mining"
+	"text.autoconfig.balancedinventory.title": "Balanced Inventory",
+	"text.autoconfig.balancedinventory.option.showToolHotbar": "Show Tool Hotbar",
+	"text.autoconfig.balancedinventory.option.scrollToToolHotbar": "Scroll to Tool Hotbar",
+	"text.autoconfig.balancedinventory.option.autoSelectTools": "Auto Select Tools",
+	"text.autoconfig.balancedinventory.option.autoReturnOnUse": "Auto Return on Use",
+	"text.autoconfig.balancedinventory.option.autoReturnAfterCooldown": "Auto Return after Cooldown",
+	"text.autoconfig.balancedinventory.option.autoReturnCooldown": "Auto Return Cooldown",
+	"text.autoconfig.balancedinventory.option.showToolHotbar.@Tooltip": "Long hotbar will be rendered on the HUD",
+	"text.autoconfig.balancedinventory.option.scrollToToolHotbar.@Tooltip": "Tool hotbar can be accessed using the scroll wheel",
+	"text.autoconfig.balancedinventory.option.autoSelectTools.@Tooltip": "Best tool will be automatically selected when mining",
+	"text.autoconfig.balancedinventory.option.autoReturnOnUse.@Tooltip": "Automatically return to the last selected slot on the main hotbar when using an item",
+	"text.autoconfig.balancedinventory.option.autoReturnAfterCooldown.@Tooltip": "Automatically return to the last selected slot on the main hotbar after a cooldown",
+	"text.autoconfig.balancedinventory.option.autoReturnCooldown.@Tooltip": "The number of ticks after which to return to the last selected slot"
 }

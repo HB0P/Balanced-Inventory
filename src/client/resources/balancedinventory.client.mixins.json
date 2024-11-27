@@ -4,9 +4,11 @@
   "package": "dev.hbop.balancedinventory.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "M_ClientPlayerInteractionManager",
     "M_HandledScreen",
     "M_InGameHud",
     "M_LoomScreen",
+    "M_MinecraftClient",
     "M_Mouse",
     "M_RecipeBookScreen",
     "M_RecipeBookWidget"

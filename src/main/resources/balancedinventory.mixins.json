@@ -4,12 +4,8 @@
   "package": "dev.hbop.balancedinventory.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "M_AbstractBlockState",
     "M_PlayerInventory",
     "M_ServerPlayNetworkHandler",
-    "maxstacksize.M_Codecs",
-    "maxstacksize.M_Inventory",
-    "maxstacksize.M_Items",
     "screenhandlers.M_AbstractFurnaceScreenHandler",
     "screenhandlers.M_BeaconScreenHandler",
     "screenhandlers.M_BrewingStandScreenHandler",

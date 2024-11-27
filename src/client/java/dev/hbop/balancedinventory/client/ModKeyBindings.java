@@ -40,11 +40,13 @@ public class ModKeyBindings {
                         || stack.isOf(Items.TRIDENT)
                 );
                 if (i != -1) {
+                    ClientSlotData.set(player.getInventory().selectedSlot, false);
                     player.getInventory().selectedSlot = i;
                 }
             }
             for (int i = 0; i < 6; i++) {
                 while (toolHotbarKeys[i].wasPressed()) {
+                    ClientSlotData.set(player.getInventory().selectedSlot, false);
                     player.getInventory().selectedSlot = 41 + i;
                 }
             }

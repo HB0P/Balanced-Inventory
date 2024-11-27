@@ -2,6 +2,7 @@ package dev.hbop.balancedinventory.client.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.hbop.balancedinventory.BalancedInventory;
+import dev.hbop.balancedinventory.client.config.ModConfig;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderLayer;
@@ -14,7 +15,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.function.Function;
 
 @Mixin(InGameHud.class)
 public abstract class M_InGameHud {
@@ -27,7 +32,9 @@ public abstract class M_InGameHud {
             method = "renderHotbar",
             at = @At("TAIL")
     )
-    private void injected(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void renderHotbar(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (!ModConfig.getConfig().showToolHotbar) return;
+        
         PlayerEntity player = this.getCameraPlayer();
         assert player != null;
         
@@ -55,6 +62,87 @@ public abstract class M_InGameHud {
             ItemStack stack = player.getInventory().getStack(i + 41);
             int x = context.getScaledWindowWidth() / 2 + (i < 3 ? -154 : 98) + (i % 3 * 20);
             renderHotbarItem(context, x, context.getScaledWindowHeight() - 19, tickCounter, this.getCameraPlayer(), stack, 1);
+        }
+    }
+    
+    // shift the offhand when showing tool hotbar
+    @Redirect(
+            method = "renderHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V",
+                    ordinal = 0
+            ),
+            slice = @Slice(
+                    from = @At(
+                            value = "FIELD",
+                            target = "Lnet/minecraft/client/gui/hud/InGameHud;HOTBAR_OFFHAND_LEFT_TEXTURE:Lnet/minecraft/util/Identifier;"
+                    )
+            )
+    )
+    private void renderOffhandLeft(DrawContext context, Function<Identifier, RenderLayer> renderLayers, Identifier sprite, int x, int y, int width, int height) {
+        if (ModConfig.getConfig().showToolHotbar) {
+            context.drawGuiTexture(renderLayers, sprite, x - 66, y, width, height);
+        }
+        else {
+            context.drawGuiTexture(renderLayers, sprite, x, y, width, height);
+        }
+    }
+
+    @Redirect(
+            method = "renderHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V",
+                    ordinal = 0
+            ),
+            slice = @Slice(
+                    from = @At(
+                            value = "FIELD",
+                            target = "Lnet/minecraft/client/gui/hud/InGameHud;HOTBAR_OFFHAND_RIGHT_TEXTURE:Lnet/minecraft/util/Identifier;"
+                    )
+            )
+    )
+    private void renderOffhandRight(DrawContext context, Function<Identifier, RenderLayer> renderLayers, Identifier sprite, int x, int y, int width, int height) {
+        if (ModConfig.getConfig().showToolHotbar) {
+            context.drawGuiTexture(renderLayers, sprite, x + 66, y, width, height);
+        }
+        else {
+            context.drawGuiTexture(renderLayers, sprite, x, y, width, height);
+        }
+    }
+    
+    @Redirect(
+            method = "renderHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(Lnet/minecraft/client/gui/DrawContext;IILnet/minecraft/client/render/RenderTickCounter;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V",
+                    ordinal = 1
+            )
+    )
+    private void renderOffhandItemLeft(InGameHud hud, DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed) {
+        if (ModConfig.getConfig().showToolHotbar) {
+            renderHotbarItem(context, x - 66, y, tickCounter, player, stack, seed);
+        }
+        else {
+            renderHotbarItem(context, x, y, tickCounter, player, stack, seed);
+        }
+    }
+
+    @Redirect(
+            method = "renderHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(Lnet/minecraft/client/gui/DrawContext;IILnet/minecraft/client/render/RenderTickCounter;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V",
+                    ordinal = 2
+            )
+    )
+    private void renderOffhandItemRight(InGameHud hud, DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed) {
+        if (ModConfig.getConfig().showToolHotbar) {
+            renderHotbarItem(context, x + 66, y, tickCounter, player, stack, seed);
+        }
+        else {
+            renderHotbarItem(context, x, y, tickCounter, player, stack, seed);
         }
     }
 }
