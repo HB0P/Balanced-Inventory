@@ -1,7 +1,7 @@
 package dev.hbop.balancedinventory.client.mixin;
 
 import dev.hbop.balancedinventory.client.ClientSlotData;
-import dev.hbop.balancedinventory.client.config.ModConfig;
+import dev.hbop.balancedinventory.client.config.ClientConfig;
 import dev.hbop.balancedinventory.helper.InventoryHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -38,7 +38,7 @@ public abstract class M_ClientPlayerInteractionManager {
             )
     )
     private void startAttackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (!ModConfig.getConfig().autoSelectTools) return;
+        if (!ClientConfig.getConfig().autoSelectTools) return;
         
         assert this.client.world != null;
         BlockState state = this.client.world.getBlockState(pos);
@@ -71,7 +71,7 @@ public abstract class M_ClientPlayerInteractionManager {
             )
     )
     private void interactBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (!ModConfig.getConfig().autoReturnOnUse) return;
+        if (!ClientConfig.getConfig().autoReturnOnUse) return;
         
         if (ClientSlotData.hasPreviouslySelectedSlot()) {
             player.getInventory().selectedSlot = ClientSlotData.getPreviouslySelectedSlot();
@@ -89,7 +89,7 @@ public abstract class M_ClientPlayerInteractionManager {
             )
     )
     private void interactItem(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (!ModConfig.getConfig().autoReturnOnUse) return;
+        if (!ClientConfig.getConfig().autoReturnOnUse) return;
 
         if (ClientSlotData.hasPreviouslySelectedSlot()) {
             player.getInventory().selectedSlot = ClientSlotData.getPreviouslySelectedSlot();

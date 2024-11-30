@@ -6,8 +6,8 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
-@Config(name = BalancedInventory.MOD_ID)
-public class ModConfig implements ConfigData {
+@Config(name = BalancedInventory.MOD_ID + "-client")
+public class ClientConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     public boolean showToolHotbar = true;
@@ -22,7 +22,7 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public int autoReturnCooldown = 40;
     
-    public static ModConfig getConfig() {
-        return AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+    public static ClientConfig getConfig() {
+        return AutoConfig.getConfigHolder(ClientConfig.class).getConfig();
     }
 }

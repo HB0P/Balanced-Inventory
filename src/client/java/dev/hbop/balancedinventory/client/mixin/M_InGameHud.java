@@ -2,7 +2,7 @@ package dev.hbop.balancedinventory.client.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.hbop.balancedinventory.BalancedInventory;
-import dev.hbop.balancedinventory.client.config.ModConfig;
+import dev.hbop.balancedinventory.client.config.ClientConfig;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderLayer;
@@ -33,7 +33,7 @@ public abstract class M_InGameHud {
             at = @At("TAIL")
     )
     private void renderHotbar(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (!ModConfig.getConfig().showToolHotbar) return;
+        if (!ClientConfig.getConfig().showToolHotbar) return;
         
         PlayerEntity player = this.getCameraPlayer();
         assert player != null;
@@ -81,7 +81,7 @@ public abstract class M_InGameHud {
             )
     )
     private void renderOffhandLeft(DrawContext context, Function<Identifier, RenderLayer> renderLayers, Identifier sprite, int x, int y, int width, int height) {
-        if (ModConfig.getConfig().showToolHotbar) {
+        if (ClientConfig.getConfig().showToolHotbar) {
             context.drawGuiTexture(renderLayers, sprite, x - 66, y, width, height);
         }
         else {
@@ -104,7 +104,7 @@ public abstract class M_InGameHud {
             )
     )
     private void renderOffhandRight(DrawContext context, Function<Identifier, RenderLayer> renderLayers, Identifier sprite, int x, int y, int width, int height) {
-        if (ModConfig.getConfig().showToolHotbar) {
+        if (ClientConfig.getConfig().showToolHotbar) {
             context.drawGuiTexture(renderLayers, sprite, x + 66, y, width, height);
         }
         else {
@@ -121,7 +121,7 @@ public abstract class M_InGameHud {
             )
     )
     private void renderOffhandItemLeft(InGameHud hud, DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed) {
-        if (ModConfig.getConfig().showToolHotbar) {
+        if (ClientConfig.getConfig().showToolHotbar) {
             renderHotbarItem(context, x - 66, y, tickCounter, player, stack, seed);
         }
         else {
@@ -138,7 +138,7 @@ public abstract class M_InGameHud {
             )
     )
     private void renderOffhandItemRight(InGameHud hud, DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed) {
-        if (ModConfig.getConfig().showToolHotbar) {
+        if (ClientConfig.getConfig().showToolHotbar) {
             renderHotbarItem(context, x + 66, y, tickCounter, player, stack, seed);
         }
         else {

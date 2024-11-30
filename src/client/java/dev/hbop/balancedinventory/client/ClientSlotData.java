@@ -1,6 +1,6 @@
 package dev.hbop.balancedinventory.client;
 
-import dev.hbop.balancedinventory.client.config.ModConfig;
+import dev.hbop.balancedinventory.client.config.ClientConfig;
 
 public class ClientSlotData {
     
@@ -27,8 +27,8 @@ public class ClientSlotData {
     public static void set(int selectedSlot, boolean returnAfterCooldown) {
         if (selectedSlot <= 8) {
             ClientSlotData.previousSelectedSlot = selectedSlot;
-            if (returnAfterCooldown && ModConfig.getConfig().autoReturnAfterCooldown) {
-                ClientSlotData.selectedSlotResetCooldown = ModConfig.getConfig().autoReturnCooldown;
+            if (returnAfterCooldown && ClientConfig.getConfig().autoReturnAfterCooldown) {
+                ClientSlotData.selectedSlotResetCooldown = ClientConfig.getConfig().autoReturnCooldown;
             }
         }
     }
@@ -41,7 +41,7 @@ public class ClientSlotData {
     
     public static void boostSelectedSlotResetCooldown() {
         if (selectedSlotResetCooldown >= 0) {
-            selectedSlotResetCooldown = ModConfig.getConfig().autoReturnCooldown;
+            selectedSlotResetCooldown = ClientConfig.getConfig().autoReturnCooldown;
         }
     }
 }

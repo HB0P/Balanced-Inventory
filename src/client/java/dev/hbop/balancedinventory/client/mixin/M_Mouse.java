@@ -1,7 +1,7 @@
 package dev.hbop.balancedinventory.client.mixin;
 
 import dev.hbop.balancedinventory.client.ClientSlotData;
-import dev.hbop.balancedinventory.client.config.ModConfig;
+import dev.hbop.balancedinventory.client.config.ClientConfig;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.input.Scroller;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ public abstract class M_Mouse {
     private int scrollCycling(double amount, int selectedSlot, int hotbarSize) {
         ClientSlotData.reset();
         
-        if (ModConfig.getConfig().scrollToToolHotbar) {
+        if (ClientConfig.getConfig().scrollToToolHotbar) {
             int slotPosition;
             if (selectedSlot >= 0 && selectedSlot <= 8) {
                 slotPosition = selectedSlot + 3;
