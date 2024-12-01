@@ -38,19 +38,7 @@ public abstract class M_ClientPlayerInteractionManager {
             )
     )
     private void startAttackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (!BalancedInventoryClient.CONFIG.autoSelectTools()) return;
         
-        assert this.client.world != null;
-        BlockState state = this.client.world.getBlockState(pos);
-        ClientPlayerEntity player = this.client.player;
-        assert player != null;
-        
-        int i = InventoryHelper.getSlotInHotbarMatching(player.getInventory(), stack -> stack.isSuitableFor(state));
-        if (i != -1) {
-            ClientSlotData.set(player.getInventory().selectedSlot, true);
-            player.getInventory().selectedSlot = i;
-            syncSelectedSlot();
-        }
     }
     
     // don't decrement slot reset cooldown when continuing to mine
