@@ -1,6 +1,6 @@
 package dev.hbop.balancedinventory.helper;
 
-import dev.hbop.balancedinventory.config.MainConfig;
+import dev.hbop.balancedinventory.BalancedInventory;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -39,13 +39,13 @@ public class InventoryHelper {
         // left inventory
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                consumer.accept(new EquipmentSlot(inventory, y * 3 + x + 47, -50 + x * 18, height - 82 + y * 18, MainConfig.getConfig().restrictExtendedInventoryToEquipment));
+                consumer.accept(new EquipmentSlot(inventory, y * 3 + x + 47, -50 + x * 18, height - 82 + y * 18, BalancedInventory.CONFIG.restrictExtendedInventoryToEquipment()));
             }
         }
         // right inventory
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                consumer.accept(new EquipmentSlot(inventory, y * 3 + x + 56, width - 2 + x * 18, height - 82 + y * 18, MainConfig.getConfig().restrictExtendedInventoryToEquipment));
+                consumer.accept(new EquipmentSlot(inventory, y * 3 + x + 56, width - 2 + x * 18, height - 82 + y * 18, BalancedInventory.CONFIG.restrictExtendedInventoryToEquipment()));
             }
         }
     }

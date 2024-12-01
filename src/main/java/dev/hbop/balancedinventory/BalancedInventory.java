@@ -1,8 +1,6 @@
 package dev.hbop.balancedinventory;
 
 import dev.hbop.balancedinventory.config.MainConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -13,10 +11,11 @@ public class BalancedInventory implements ModInitializer {
     public static final String MOD_ID = "balancedinventory";
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final MainConfig CONFIG = MainConfig.createAndLoad();
     
     @Override
     public void onInitialize() {
-        AutoConfig.register(MainConfig.class, GsonConfigSerializer::new);
+
     }
 
     public static Identifier identifier(String id) {
