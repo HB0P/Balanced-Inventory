@@ -12,13 +12,13 @@ import org.lwjgl.glfw.GLFW;
 
 public class ModKeyBindings {
     
-    private static final KeyBinding selectWeaponKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    public static final KeyBinding selectWeaponKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.balancedinventory.select_weapon",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_GRAVE_ACCENT,
             "key.categories.balancedinventory.tool_hotbar"
     ));
-    private static final KeyBinding[] toolHotbarKeys = new KeyBinding[6];
+    public static final KeyBinding[] toolHotbarKeys = new KeyBinding[6];
     
     public static void registerKeyBindings() {
         for (int i = 0; i < 6; i++) {

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "M_PlayerInventory",
+    "M_ScreenHandler",
     "M_ServerPlayNetworkHandler",
     "screenhandlers.M_AbstractFurnaceScreenHandler",
     "screenhandlers.M_BeaconScreenHandler",
@@ -12,6 +13,7 @@
     "screenhandlers.M_CartographyTableScreenHandler",
     "screenhandlers.M_CrafterScreenHandler",
     "screenhandlers.M_CraftingScreenHandler",
+    "screenhandlers.M_EnchantmentScreenHandler",
     "screenhandlers.M_ForgingScreenHandler",
     "screenhandlers.M_Generic3x3ContainerScreenHandler",
     "screenhandlers.M_GenericContainerScreenHandler",

@@ -54,6 +54,20 @@ public class InventoryHelper {
         addExtraSlots(inventory, 176, 166, consumer);
     }
     
+    public static boolean handleQuickMove(int start, boolean hasOffhand, ItemStack stack, int i, int j, boolean b, InsertItemFunction function) {
+        boolean changed = function.apply(stack, i, j, b);
+        if (i == start && j == start + 36 && !stack.isEmpty()) {
+            if (function.apply(stack, start + (hasOffhand ? 43 : 42), start + (hasOffhand ? 61 : 60), false)) {
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    public static boolean handleQuickMove(int start, ItemStack stack, int i, int j, boolean b, InsertItemFunction function) {
+        return handleQuickMove(start, false, stack, i, j, b, function);
+    }
+
     private static class EquipmentSlot extends Slot {
         
         private final boolean restrictedToEquipment;
@@ -67,5 +81,9 @@ public class InventoryHelper {
         public boolean canInsert(ItemStack stack) {
             return !restrictedToEquipment || stack.isDamageable();
         }
+    }
+    
+    public interface InsertItemFunction {
+        boolean apply(ItemStack stack, int i, int j, boolean b);
     }
 }
