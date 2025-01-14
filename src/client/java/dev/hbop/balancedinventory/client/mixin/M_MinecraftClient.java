@@ -37,8 +37,8 @@ public abstract class M_MinecraftClient {
             method = "doItemPick",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I",
-                    opcode = Opcodes.PUTFIELD
+                    target = "Lnet/minecraft/client/MinecraftClient;interactionManager:Lnet/minecraft/client/network/ClientPlayerInteractionManager;",
+                    opcode = Opcodes.GETFIELD
             )
     )
     private void doItemPick(CallbackInfo ci) {

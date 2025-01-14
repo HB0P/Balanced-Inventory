@@ -34,8 +34,6 @@ public abstract class M_PlayerInventory {
 
     @Shadow public abstract void setStack(int slot, ItemStack stack);
 
-    @Shadow public int selectedSlot;
-
     @Unique
     private DefaultedList<ItemStack> getExtendedInventory() {
         return combinedInventory.get(3);
@@ -186,7 +184,7 @@ public abstract class M_PlayerInventory {
         return this.getStack(index);
     }
 
-    // fix to allow pick-block from extended inventory
+    // fix to allow pick-block to extended inventory
     @Redirect(
             method = "swapSlotWithHotbar",
             at = @At(
@@ -195,8 +193,25 @@ public abstract class M_PlayerInventory {
                     ordinal = 1
             )
     )
+    @SuppressWarnings("SameReturnValue")
     private Object swapSlotWithHotbarSet(DefaultedList<?> instance, int index, Object element) {
         this.setStack(index, (ItemStack) element);
+        return null;
+    }
+
+    // fix to prevent adding creative pick block into extended inventory
+    @Redirect(
+            method = "swapStackWithHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/collection/DefaultedList;set(ILjava/lang/Object;)Ljava/lang/Object;",
+                    ordinal = 0
+            )
+    )
+    private Object swapStackWithHotbar(DefaultedList<?> instance, int index, Object element) {
+        if (index < this.main.size()) {
+            this.setStack(index, (ItemStack) element);
+        }
         return null;
     }
 
@@ -211,22 +226,6 @@ public abstract class M_PlayerInventory {
     )
     private Object swapSlotWithHotbarGet(DefaultedList<?> instance, int index) {
         return this.getStack(index);
-    }
-
-    // fix to prevent adding creative pick block into extended inventory
-    @Redirect(
-            method = "addPickBlock",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/util/collection/DefaultedList;set(ILjava/lang/Object;)Ljava/lang/Object;",
-                    ordinal = 0
-            )
-    )
-    private Object addPickBlock(DefaultedList<?> instance, int index, Object element) {
-        if (index < this.main.size()) {
-            return this.main.set(index, this.main.get(this.selectedSlot));
-        }
-        return null;
     }
     
     // look in whole inventory for main hand stack
