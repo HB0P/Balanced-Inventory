@@ -1,6 +1,6 @@
 package dev.hbop.balancedinventory.helper;
 
-import dev.hbop.balancedinventory.config.MainConfig;
+import dev.hbop.balancedinventory.BalancedInventory;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ public class InventoryHelper {
 
     public static boolean isSlotEnabled(int index) {
         if (index < 41) return true;
-        return (index - 41) % 9 < MainConfig.getConfig().extendedInventorySize;
+        return (index - 41) % 9 < BalancedInventory.CONFIG.extendedInventorySize();
     }
     
     /**
@@ -39,25 +39,25 @@ public class InventoryHelper {
     }
     
     public static void addExtraSlots(PlayerInventory inventory, int width, int height, Consumer<Slot> consumer) {
-        int size = MainConfig.getConfig().extendedInventorySize;
+        int size = BalancedInventory.CONFIG.extendedInventorySize();
         // left hotbar
         for (int i = 0; i < size; i++) {
-            consumer.accept(new EquipmentSlot(inventory, i + 41, -14 - i * 18, height - 24, MainConfig.getConfig().restrictExtendedHotbarToEquipment));
+            consumer.accept(new EquipmentSlot(inventory, i + 41, -14 - i * 18, height - 24, BalancedInventory.CONFIG.restrictExtendedHotbarToEquipment()));
         }
         // right hotbar
         for (int i = 0; i < size; i++) {
-            consumer.accept(new EquipmentSlot(inventory, i + 50, width - 2 + i * 18, height - 24, MainConfig.getConfig().restrictExtendedHotbarToEquipment));
+            consumer.accept(new EquipmentSlot(inventory, i + 50, width - 2 + i * 18, height - 24, BalancedInventory.CONFIG.restrictExtendedHotbarToEquipment()));
         }
         // left inventory
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < size; x++) {
-                consumer.accept(new EquipmentSlot(inventory, y * 9 + x + 59, -14 - x * 18, height - 82 + y * 18, MainConfig.getConfig().restrictExtendedInventoryToEquipment));
+                consumer.accept(new EquipmentSlot(inventory, y * 9 + x + 59, -14 - x * 18, height - 82 + y * 18, BalancedInventory.CONFIG.restrictExtendedInventoryToEquipment()));
             }
         }
         // right inventory
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < size; x++) {
-                consumer.accept(new EquipmentSlot(inventory, y * 9 + x + 86, width - 2 + x * 18, height - 82 + y * 18, MainConfig.getConfig().restrictExtendedInventoryToEquipment));
+                consumer.accept(new EquipmentSlot(inventory, y * 9 + x + 86, width - 2 + x * 18, height - 82 + y * 18, BalancedInventory.CONFIG.restrictExtendedInventoryToEquipment()));
             }
         }
     }
@@ -70,7 +70,7 @@ public class InventoryHelper {
         int offhand = hasOffhand ? 1 : 0;
         boolean changed = function.apply(stack, i, j, b);
         if (i == start && j == start + 36 && !stack.isEmpty()) {
-            if (function.apply(stack, start + 36 + offhand, start + 36 + offhand + MainConfig.getConfig().extendedInventorySize * 8, false)) {
+            if (function.apply(stack, start + 36 + offhand, start + 36 + offhand + BalancedInventory.CONFIG.extendedInventorySize() * 8, false)) {
                 changed = true;
             }
         }

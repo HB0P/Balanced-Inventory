@@ -1,6 +1,6 @@
 package dev.hbop.balancedinventory.client;
 
-import dev.hbop.balancedinventory.config.MainConfig;
+import dev.hbop.balancedinventory.BalancedInventory;
 import dev.hbop.balancedinventory.helper.InventoryHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -47,7 +47,7 @@ public class ModKeyBindings {
             }
             for (int i = 0; i < 18; i++) {
                 while (toolHotbarKeys[i].wasPressed()) {
-                    if ((i % 9) >= MainConfig.getConfig().extendedInventorySize) break;
+                    if ((i % 9) >= BalancedInventory.CONFIG.extendedInventorySize()) break;
                     ClientSlotData.set(player.getInventory().selectedSlot, false);
                     player.getInventory().selectedSlot = 41 + i;
                 }

@@ -1,6 +1,6 @@
 package dev.hbop.balancedinventory.client.mixin;
 
-import dev.hbop.balancedinventory.config.MainConfig;
+import dev.hbop.balancedinventory.BalancedInventory;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -27,6 +27,6 @@ public abstract class M_CreativeInventoryScreen extends HandledScreen<CreativeIn
             )
     )
     private int getSlotsSize(DefaultedList<?> instance) {
-        return instance.size() - (MainConfig.getConfig().extendedInventorySize * 8);
+        return instance.size() - (BalancedInventory.CONFIG.extendedInventorySize() * 8);
     }
 }

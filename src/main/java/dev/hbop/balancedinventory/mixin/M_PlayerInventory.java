@@ -1,7 +1,7 @@
 package dev.hbop.balancedinventory.mixin;
 
 import com.google.common.collect.ImmutableList;
-import dev.hbop.balancedinventory.config.MainConfig;
+import dev.hbop.balancedinventory.BalancedInventory;
 import dev.hbop.balancedinventory.helper.InventoryHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -105,7 +105,7 @@ public abstract class M_PlayerInventory {
     )
     private void getEmptySlot(CallbackInfoReturnable<Integer> cir) {
         if (cir.getReturnValue() == -1) {
-            if (!MainConfig.getConfig().restrictExtendedHotbarToEquipment) {
+            if (!BalancedInventory.CONFIG.restrictExtendedHotbarToEquipment()) {
                 for (int i = 41; i < 59; i++) {
                     if (InventoryHelper.isSlotEnabled(i) && this.getStack(i).isEmpty()) {
                         cir.setReturnValue(i);
@@ -113,7 +113,7 @@ public abstract class M_PlayerInventory {
                     }
                 }
             }
-            if (!MainConfig.getConfig().restrictExtendedInventoryToEquipment) {
+            if (!BalancedInventory.CONFIG.restrictExtendedInventoryToEquipment()) {
                 for (int i = 59; i < 41 + this.getExtendedInventory().size(); i++) {
                     if (InventoryHelper.isSlotEnabled(i) && this.getStack(i).isEmpty()) {
                         cir.setReturnValue(i);

@@ -1,7 +1,7 @@
 package dev.hbop.balancedinventory.client.mixin;
 
+import dev.hbop.balancedinventory.BalancedInventory;
 import dev.hbop.balancedinventory.client.ClientSlotData;
-import dev.hbop.balancedinventory.config.MainConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
@@ -62,7 +62,7 @@ public abstract class M_MinecraftClient {
     )
     private boolean swapHands(KeyBinding instance) {
         assert this.player != null;
-        if (this.player.getInventory().selectedSlot <= 8 || !MainConfig.getConfig().restrictExtendedHotbarToEquipment) {
+        if (this.player.getInventory().selectedSlot <= 8 || !BalancedInventory.CONFIG.restrictExtendedHotbarToEquipment()) {
             return instance.wasPressed();
         }
         instance.wasPressed();

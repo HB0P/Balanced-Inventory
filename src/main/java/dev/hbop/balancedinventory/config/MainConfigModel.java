@@ -9,5 +9,9 @@ import io.wispforest.owo.config.annotation.Sync;
 public class MainConfigModel {
     
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
-    public boolean restrictExtendedInventoryToEquipment = true;
+    public boolean restrictExtendedInventoryToEquipment = false;
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    public boolean restrictExtendedHotbarToEquipment = false;
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    public int extendedInventorySize = 3;
 }
