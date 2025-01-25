@@ -2,6 +2,7 @@ package dev.hbop.balancedinventory.mixin;
 
 import com.google.common.collect.ImmutableList;
 import dev.hbop.balancedinventory.config.MainConfig;
+import dev.hbop.balancedinventory.helper.InventoryHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -28,7 +29,7 @@ public abstract class M_PlayerInventory {
     @Shadow @Final public DefaultedList<ItemStack> offHand;
     @Shadow @Final public PlayerEntity player;
     @Shadow
-    private final List<DefaultedList<ItemStack>> combinedInventory = ImmutableList.of(this.main, this.armor, this.offHand, DefaultedList.ofSize(24, ItemStack.EMPTY));
+    private final List<DefaultedList<ItemStack>> combinedInventory = ImmutableList.of(this.main, this.armor, this.offHand, DefaultedList.ofSize(72, ItemStack.EMPTY));
     @Shadow public abstract ItemStack getStack(int slot);
     @Shadow protected abstract boolean canStackAddMore(ItemStack existingStack, ItemStack stack);
 
@@ -48,7 +49,7 @@ public abstract class M_PlayerInventory {
         for (int i = 0; i < this.getExtendedInventory().size(); i++) {
             if (!this.getExtendedInventory().get(i).isEmpty()) {
                 NbtCompound nbtCompound = new NbtCompound();
-                nbtCompound.putByte("Slot", (byte)(i + 50));
+                nbtCompound.putByte("Slot", (byte)(i + 175));
                 nbtList.add(this.getExtendedInventory().get(i).toNbt(this.player.getRegistryManager(), nbtCompound));
             }
         }
@@ -66,8 +67,8 @@ public abstract class M_PlayerInventory {
             NbtCompound nbtCompound = nbtList.getCompound(i);
             int j = nbtCompound.getByte("Slot") & 255;
             ItemStack itemStack = ItemStack.fromNbt(this.player.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY);
-            if (j >= 50 && j < this.getExtendedInventory().size() + 50) {
-                this.getExtendedInventory().set(j - 50, itemStack);
+            if (j >= 175 && j < this.getExtendedInventory().size() + 175) {
+                this.getExtendedInventory().set(j - 175, itemStack);
             }
         }
     }
@@ -103,11 +104,21 @@ public abstract class M_PlayerInventory {
             cancellable = true
     )
     private void getEmptySlot(CallbackInfoReturnable<Integer> cir) {
-        if (cir.getReturnValue() == -1 && !MainConfig.getConfig().restrictExtendedInventoryToEquipment) {
-            for (int i = 47; i < 41 + this.getExtendedInventory().size(); i++) {
-                if (this.getStack(i).isEmpty()) {
-                    cir.setReturnValue(i);
-                    return;
+        if (cir.getReturnValue() == -1) {
+            if (!MainConfig.getConfig().restrictExtendedHotbarToEquipment) {
+                for (int i = 41; i < 59; i++) {
+                    if (InventoryHelper.isSlotEnabled(i) && this.getStack(i).isEmpty()) {
+                        cir.setReturnValue(i);
+                        return;
+                    }
+                }
+            }
+            if (!MainConfig.getConfig().restrictExtendedInventoryToEquipment) {
+                for (int i = 59; i < 41 + this.getExtendedInventory().size(); i++) {
+                    if (InventoryHelper.isSlotEnabled(i) && this.getStack(i).isEmpty()) {
+                        cir.setReturnValue(i);
+                        return;
+                    }
                 }
             }
         }
@@ -120,7 +131,7 @@ public abstract class M_PlayerInventory {
             cancellable = true
     )
     private static void isValidHotbarIndex(int slot, CallbackInfoReturnable<Boolean> cir) {
-        if (slot >= 41 && slot <= 46) {
+        if (slot >= 41 && slot <= 58) {
             cir.setReturnValue(true);
         }
     }
@@ -133,8 +144,8 @@ public abstract class M_PlayerInventory {
     )
     private void getOccupiedSlotWithRoomForStack(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         if (cir.getReturnValue() == -1) {
-            for (int i = 47; i < 41 + this.getExtendedInventory().size(); i++) {
-                if (this.canStackAddMore(this.getStack(i), stack)) {
+            for (int i = 41; i < 41 + this.getExtendedInventory().size(); i++) {
+                if (InventoryHelper.isSlotEnabled(i) && this.canStackAddMore(this.getStack(i), stack)) {
                     cir.setReturnValue(i);
                     return;
                 }
@@ -150,8 +161,8 @@ public abstract class M_PlayerInventory {
     )
     private void getSlotWithStack(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         if (cir.getReturnValue() == -1) {
-            for (int i = 47; i < 41 + this.getExtendedInventory().size(); i++) {
-                if (!this.getStack(i).isEmpty() && ItemStack.areItemsAndComponentsEqual(stack, this.getStack(i))) {
+            for (int i = 41; i < 41 + this.getExtendedInventory().size(); i++) {
+                if (InventoryHelper.isSlotEnabled(i) && !this.getStack(i).isEmpty() && ItemStack.areItemsAndComponentsEqual(stack, this.getStack(i))) {
                     cir.setReturnValue(i);
                     return;
                 }

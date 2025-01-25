@@ -2,6 +2,7 @@ package dev.hbop.balancedinventory.client.mixin;
 
 import dev.hbop.balancedinventory.client.ClientSlotData;
 import dev.hbop.balancedinventory.client.config.ClientConfig;
+import dev.hbop.balancedinventory.config.MainConfig;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.input.Scroller;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,27 +21,31 @@ public abstract class M_Mouse {
     )
     private int scrollCycling(double amount, int selectedSlot, int hotbarSize) {
         ClientSlotData.reset();
+        int size = MainConfig.getConfig().extendedInventorySize;
         
         if (ClientConfig.getConfig().scrollToToolHotbar) {
             int slotPosition;
             if (selectedSlot >= 0 && selectedSlot <= 8) {
-                slotPosition = selectedSlot + 3;
-            } else if (selectedSlot >= 41 && selectedSlot <= 43) {
-                slotPosition = selectedSlot - 41;
-            } else if (selectedSlot >= 44 && selectedSlot <= 46) {
-                slotPosition = selectedSlot - 32;
-            } else throw new RuntimeException();
-
-            slotPosition = Scroller.scrollCycling(amount, slotPosition, 15);
-
-            if (slotPosition >= 3 && slotPosition <= 11) {
-                selectedSlot = slotPosition - 3;
-            } else if (slotPosition >= 0 && slotPosition <= 2) {
-                selectedSlot = slotPosition + 41;
-            } else if (slotPosition >= 12) {
-                selectedSlot = slotPosition + 32;
+                slotPosition = selectedSlot + size;
+            } else if (selectedSlot >= 41 && selectedSlot < 41 + size) {
+                slotPosition = 40 + size - selectedSlot;
+            } else if (selectedSlot >= 50 && selectedSlot < 50 + size) {
+                slotPosition = selectedSlot - 41 + size;
+            } else {
+                if (amount > 0) return 8;
+                else return 0;
             }
+            
+            slotPosition = Scroller.scrollCycling(amount, slotPosition, 9 + size * 2);
 
+            if (slotPosition >= size && slotPosition < size + 9) {
+                selectedSlot = slotPosition - size;
+            } else if (slotPosition >= 0 && slotPosition < size) {
+                selectedSlot = 40 + size - slotPosition;
+            } else if (slotPosition >= size + 9) {
+                selectedSlot = slotPosition + 41 - size;
+            }
+            
             return selectedSlot;
         }
         else if (selectedSlot <= 8) {

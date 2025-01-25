@@ -4,6 +4,7 @@
   "package": "dev.hbop.balancedinventory.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "M_PlayerEntity",
     "M_PlayerInventory",
     "M_ScreenHandler",
     "M_ServerPlayNetworkHandler",

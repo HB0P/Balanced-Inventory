@@ -17,6 +17,6 @@ public abstract class M_ServerPlayNetworkHandler {
             )
     )
     private int getHotbarSize() {
-        return 47;
+        return 59;
     }
 }

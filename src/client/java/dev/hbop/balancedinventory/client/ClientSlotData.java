@@ -25,7 +25,7 @@ public class ClientSlotData {
     }
     
     public static void set(int selectedSlot, boolean returnAfterCooldown) {
-        if (selectedSlot <= 8) {
+        if (!hasPreviouslySelectedSlot()) {
             ClientSlotData.previousSelectedSlot = selectedSlot;
             if (returnAfterCooldown && ClientConfig.getConfig().autoReturnAfterCooldown) {
                 ClientSlotData.selectedSlotResetCooldown = ClientConfig.getConfig().autoReturnCooldown;

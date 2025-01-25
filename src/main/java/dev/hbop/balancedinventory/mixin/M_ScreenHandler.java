@@ -14,6 +14,6 @@ public abstract class M_ScreenHandler {
             constant = @Constant(intValue = 9)
     )
     private int modify9(int constant) {
-        return 47;
+        return 59;
     }
 }

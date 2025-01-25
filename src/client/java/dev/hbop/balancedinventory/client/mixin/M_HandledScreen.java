@@ -2,6 +2,7 @@ package dev.hbop.balancedinventory.client.mixin;
 
 import dev.hbop.balancedinventory.BalancedInventory;
 import dev.hbop.balancedinventory.client.ModKeyBindings;
+import dev.hbop.balancedinventory.config.MainConfig;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
@@ -52,8 +53,19 @@ public abstract class M_HandledScreen<T extends ScreenHandler> extends Screen {
         int height = this.backgroundHeight;
         if ((Screen) this instanceof ShulkerBoxScreen) height--;
         else if ((Screen) this instanceof GenericContainerScreen) height--;
-        context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x - 58, this.y + height - 90, 0, 0, 62, 90, 256, 256);
-        context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x + this.backgroundWidth - 4, this.y + height - 90, 194, 0, 62, 90, 256, 256);
+        // left inventory
+        int size = MainConfig.getConfig().extendedInventorySize;
+        context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x - 4 - size * 18, this.y + height - 90, 0, 0, 25, 90, 256, 256);
+        for (int i = 0; i < size - 2; i++) {
+            context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x - 33 - i * 18, this.y + height - 90, 25, 0, 18, 90, 256, 256);
+        }
+        context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x - 15, this.y + height - 90, 43, 0, 19, 90, 256, 256);
+        // right inventory
+        context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x + this.backgroundWidth - 4, this.y + height - 90, 194, 0, 19, 90, 256, 256);
+        for (int i = 0; i < size - 2; i++) {
+            context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x + this.backgroundWidth + 15 + i * 18, this.y + height - 90, 213, 0, 18, 90, 256, 256);
+        }
+        context.drawTexture(RenderLayer::getGuiTextured, EXTENSION_TEXTURE, this.x + this.backgroundWidth - 21 + size * 18, this.y + height - 90, 231, 0, 25, 90, 256, 256);
     }
     
     // stop tool slots being considered "out of bounds"
@@ -63,7 +75,8 @@ public abstract class M_HandledScreen<T extends ScreenHandler> extends Screen {
             cancellable = true
     )
     private void isClickOutsideBounds(double mouseX, double mouseY, int left, int top, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (mouseX > (left - 58) && mouseX < left + backgroundWidth + 58 && mouseY > top + backgroundHeight - 90 && mouseY < top + backgroundHeight) {
+        int size = MainConfig.getConfig().extendedInventorySize;
+        if (mouseX > (left - 4 - size * 18) && mouseX < left + backgroundWidth + 4 + size * 18 && mouseY > top + backgroundHeight - 90 && mouseY < top + backgroundHeight) {
             cir.setReturnValue(false);
         }
     }
@@ -77,9 +90,12 @@ public abstract class M_HandledScreen<T extends ScreenHandler> extends Screen {
     private void handleHotbarKeyPressed(int keyCode, int scanCode, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue()) {
             if (this.handler.getCursorStack().isEmpty() && this.focusedSlot != null) {
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 18; i++) {
                     if (ModKeyBindings.toolHotbarKeys[i].matchesKey(keyCode, scanCode)) {
-                        if (!this.focusedSlot.hasStack() || this.handler.getSlot(i + 46).canInsert(this.focusedSlot.getStack())) {
+                        int size = MainConfig.getConfig().extendedInventorySize;
+                        if ((i % 9) >= size) continue;
+                        int slot = i < 9 ? i + 46 : i + 37 + size;
+                        if (!this.focusedSlot.hasStack() || this.handler.getSlot(slot).canInsert(this.focusedSlot.getStack())) {
                             this.onMouseClick(this.focusedSlot, this.focusedSlot.id, i + 41, SlotActionType.SWAP);
                             cir.setReturnValue(true);
                             return;

@@ -9,6 +9,8 @@ import me.shedaniel.autoconfig.annotation.Config;
 public class MainConfig implements ConfigData {
     
     public boolean restrictExtendedInventoryToEquipment = false;
+    public boolean restrictExtendedHotbarToEquipment = true;
+    public int extendedInventorySize = 3;
 
     public static MainConfig getConfig() {
         return AutoConfig.getConfigHolder(MainConfig.class).getConfig();
