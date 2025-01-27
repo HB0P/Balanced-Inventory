@@ -45,7 +45,7 @@ public abstract class M_InGameHud {
         
         // left and right hotbar
         RenderSystem.enableBlend();
-        int size = BalancedInventory.CONFIG.extendedInventorySize();
+        int size = BalancedInventory.extendedInventorySize();
         context.drawGuiTexture(RenderLayer::getGuiTextured, HOTBAR_TEXTURE, 182, 22, 0, 0, context.getScaledWindowWidth() / 2 - 97 - 20 * size, context.getScaledWindowHeight() - 22, -19 + 20 * size, 22);
         context.drawGuiTexture(RenderLayer::getGuiTextured, HOTBAR_TEXTURE, 182, 22, 161, 0, context.getScaledWindowWidth() / 2 - 116, context.getScaledWindowHeight() - 22, 21, 22);
         
@@ -97,7 +97,7 @@ public abstract class M_InGameHud {
     )
     private void renderOffhandLeft(DrawContext context, Function<Identifier, RenderLayer> renderLayers, Identifier sprite, int x, int y, int width, int height) {
         if (BalancedInventoryClient.CONFIG.showToolHotbar()) {
-            context.drawGuiTexture(renderLayers, sprite, x - 6 - BalancedInventory.CONFIG.extendedInventorySize() * 20, y, width, height);
+            context.drawGuiTexture(renderLayers, sprite, x - 6 - BalancedInventory.extendedInventorySize() * 20, y, width, height);
         }
         else {
             context.drawGuiTexture(renderLayers, sprite, x, y, width, height);
@@ -120,7 +120,7 @@ public abstract class M_InGameHud {
     )
     private void renderOffhandRight(DrawContext context, Function<Identifier, RenderLayer> renderLayers, Identifier sprite, int x, int y, int width, int height) {
         if (BalancedInventoryClient.CONFIG.showToolHotbar()) {
-            context.drawGuiTexture(renderLayers, sprite, x + 6 + BalancedInventory.CONFIG.extendedInventorySize() * 20, y, width, height);
+            context.drawGuiTexture(renderLayers, sprite, x + 6 + BalancedInventory.extendedInventorySize() * 20, y, width, height);
         }
         else {
             context.drawGuiTexture(renderLayers, sprite, x, y, width, height);
@@ -137,7 +137,7 @@ public abstract class M_InGameHud {
     )
     private void renderOffhandItemLeft(InGameHud hud, DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed) {
         if (BalancedInventoryClient.CONFIG.showToolHotbar()) {
-            renderHotbarItem(context, x - 6 - BalancedInventory.CONFIG.extendedInventorySize() * 20, y, tickCounter, player, stack, seed);
+            renderHotbarItem(context, x - 6 - BalancedInventory.extendedInventorySize() * 20, y, tickCounter, player, stack, seed);
         }
         else {
             renderHotbarItem(context, x, y, tickCounter, player, stack, seed);
@@ -154,7 +154,7 @@ public abstract class M_InGameHud {
     )
     private void renderOffhandItemRight(InGameHud hud, DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed) {
         if (BalancedInventoryClient.CONFIG.showToolHotbar()) {
-            renderHotbarItem(context, x + 6 + BalancedInventory.CONFIG.extendedInventorySize() * 20, y, tickCounter, player, stack, seed);
+            renderHotbarItem(context, x + 6 + BalancedInventory.extendedInventorySize() * 20, y, tickCounter, player, stack, seed);
         }
         else {
             renderHotbarItem(context, x, y, tickCounter, player, stack, seed);

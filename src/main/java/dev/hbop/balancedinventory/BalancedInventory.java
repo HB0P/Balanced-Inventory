@@ -11,11 +11,23 @@ public class BalancedInventory implements ModInitializer {
     public static final String MOD_ID = "balancedinventory";
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final MainConfig CONFIG = MainConfig.createAndLoad();
+    private static final MainConfig CONFIG = MainConfig.createAndLoad();
     
     @Override
     public void onInitialize() {
 
+    }
+    
+    public static boolean restrictExtendedInventoryToEquipment() {
+        return CONFIG.restrictExtendedInventoryToEquipment();
+    }
+    
+    public static boolean restrictExtendedHotbarToEquipment() {
+        return CONFIG.restrictExtendedHotbarToEquipment();
+    }
+
+    public static int extendedInventorySize() {
+        return CONFIG.extendedInventorySize();
     }
 
     public static Identifier identifier(String id) {

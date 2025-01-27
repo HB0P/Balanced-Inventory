@@ -47,7 +47,7 @@ public class ModKeyBindings {
             }
             for (int i = 0; i < 18; i++) {
                 while (toolHotbarKeys[i].wasPressed()) {
-                    if ((i % 9) >= BalancedInventory.CONFIG.extendedInventorySize()) break;
+                    if ((i % 9) >= BalancedInventory.extendedInventorySize()) break;
                     ClientSlotData.set(player.getInventory().selectedSlot, false);
                     player.getInventory().selectedSlot = 41 + i;
                 }

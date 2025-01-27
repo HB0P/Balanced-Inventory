@@ -27,6 +27,6 @@ public abstract class M_CreativeInventoryScreen extends HandledScreen<CreativeIn
             )
     )
     private int getSlotsSize(DefaultedList<?> instance) {
-        return instance.size() - (BalancedInventory.CONFIG.extendedInventorySize() * 8);
+        return instance.size() - (BalancedInventory.extendedInventorySize() * 8);
     }
 }

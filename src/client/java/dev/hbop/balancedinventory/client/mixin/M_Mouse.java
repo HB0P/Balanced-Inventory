@@ -21,7 +21,7 @@ public abstract class M_Mouse {
     )
     private int scrollCycling(double amount, int selectedSlot, int hotbarSize) {
         ClientSlotData.reset();
-        int size = BalancedInventory.CONFIG.extendedInventorySize();
+        int size = BalancedInventory.extendedInventorySize();
         
         if (BalancedInventoryClient.CONFIG.scrollToToolHotbar()) {
             int slotPosition;

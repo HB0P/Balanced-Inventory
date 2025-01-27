@@ -105,7 +105,7 @@ public abstract class M_PlayerInventory {
     )
     private void getEmptySlot(CallbackInfoReturnable<Integer> cir) {
         if (cir.getReturnValue() == -1) {
-            if (!BalancedInventory.CONFIG.restrictExtendedHotbarToEquipment()) {
+            if (!BalancedInventory.restrictExtendedHotbarToEquipment()) {
                 for (int i = 41; i < 59; i++) {
                     if (InventoryHelper.isSlotEnabled(i) && this.getStack(i).isEmpty()) {
                         cir.setReturnValue(i);
@@ -113,7 +113,7 @@ public abstract class M_PlayerInventory {
                     }
                 }
             }
-            if (!BalancedInventory.CONFIG.restrictExtendedInventoryToEquipment()) {
+            if (!BalancedInventory.restrictExtendedInventoryToEquipment()) {
                 for (int i = 59; i < 41 + this.getExtendedInventory().size(); i++) {
                     if (InventoryHelper.isSlotEnabled(i) && this.getStack(i).isEmpty()) {
                         cir.setReturnValue(i);

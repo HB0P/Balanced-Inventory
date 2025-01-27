@@ -62,7 +62,7 @@ public abstract class M_MinecraftClient {
     )
     private boolean swapHands(KeyBinding instance) {
         assert this.player != null;
-        if (this.player.getInventory().selectedSlot <= 8 || !BalancedInventory.CONFIG.restrictExtendedHotbarToEquipment()) {
+        if (this.player.getInventory().selectedSlot <= 8 || !BalancedInventory.restrictExtendedHotbarToEquipment()) {
             return instance.wasPressed();
         }
         instance.wasPressed();
